@@ -1,0 +1,10 @@
+node_modules
+*.DS_Store
+uploads
+public/app.js
+./client/dist/bundle.js
+note.txt
+test-docs.js
+/docs
+mocha.js
+/testtest

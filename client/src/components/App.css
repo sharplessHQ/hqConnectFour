@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: powderblue;
+}
+
+.title {
+  color: #034749;
+}
+
+.game {
+  min-height: 100vh;
+  display: flex;
+  padding-top: 50px;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.titleTop {
+  display: grid;
+  width: 490px;
+  grid-template-columns: auto auto auto;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 20px;
+  /* text-align: center; */
+}
+
+.play,
+.board {
+  display: grid;
+  width: 490px;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  gap: 20px;
+}
+
+.scoreBoard {
+  width: 150px;
+  border: 3px solid #034749;
+  font-weight: bold;
+  border-radius: 10%;
+  align-items: left;
+  flex-direction: column;
+  display: flex;
+  padding-left: 25px;
+}
+
+.scoreBoardGreen {
+  color: #0E6A6B
+}
+.scoreBoardGold {
+  color: #9E880D
+}
+.scoreBoardTie {
+  color: grey
+}
+
+.play {
+  padding-top: 10px;
+  height: 50px;
+  /* flex-direction: column; */
+}
+
+.button,
+.cell,
+.cellx,
+.celly {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  background-color: powderblue;
+  border: 3px solid #034749;
+  border-radius: 50%;
+}
+
+.button {
+  background-color: rgb(205, 230, 233);
+  color: #034749;
+  font-weight: bold;
+  height: 30px;
+  flex-direction: column;
+}
+
+.resetBtn {
+  /* display: inline-block; */
+  /* margin-left: 130px; */
+  width: 80px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background-color: #034749;
+  border: 3px solid rgb(128, 194, 202);
+  color: powderblue;
+  font-weight: bold;
+  border-radius: 20%;
+}
+
+.resetBtn:hover{
+  cursor: pointer;
+  background-color: #0d8f94;
+}
+
+.button:hover {
+  cursor: pointer;
+  background: rgb(139, 196, 204);
+}
+
+.board {
+  padding-top: 0px;
+  height: 420px;
+}
+
+.cellx {
+  background-color: #0E6A6B;
+}
+
+.celly {
+  background-color: #9E880D;
+}
+
+#gameRestart,
+#gameOver {
+  font-weight: bold;
+  font-size: large;
+  margin-top: 30px;
+  /* color: grey; */
+}
+
+.gameOver {
+  color: grey;
+  border: 3px solid grey;
+  border-radius: 20%;
+}
+
+.gameOverGreen {
+  color: #0E6A6B;
+  border: 3px solid #0E6A6B;
+  border-radius: 20%;
+}
+
+.gameOverGold {
+  color: #9E880D;
+  border: 3px solid #9E880D;
+  border-radius: 20%;
+}
+
+.gameRestart {
+  color: grey;
+}
