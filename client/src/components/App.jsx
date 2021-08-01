@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './App.css';
-import Cell from './Cell.jsx';
-import Button from './Button.jsx';
+// import Cell from './Cell.jsx';
+// import Button from './Button.jsx';
+const Cell = lazy( () => import('./Cell.jsx'));
+const Button = lazy( () => import('./Button.jsx'));
 import $ from 'jquery';
+const renderLoader = () => <p>Loading</p>;
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {hasError: false};
+  }
+
+  static getDerivedStateFromError(error) {
+    return {hasError: true};
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <p>Loading failed! Please reload.</p>;
+    }
+
+    return this.props.children;
+  }
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -231,65 +253,41 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="game">
-        <div className="titleTop">
-          <h1 className="title">Connect Four</h1>
-          <div className="scoreBoard">
-            <p className="scoreBoardGreen">{`Green Win: ${this.state.xWinRounds}`}</p>
-            <p className="scoreBoardGold">{`Gold Win: ${this.state.yWinRounds}`}</p>
-            <p className="scoreBoardTie">{`Tie: ${this.state.tieRound}`}</p>
+      <ErrorBoundary>
+        <Suspense fallback={renderLoader()}>
+          <div className="game">
+            <div className="titleTop">
+              <h1 className="title">Connect Four</h1>
+              <div className="scoreBoard">
+                <p className="scoreBoardGreen">{`Green Win: ${this.state.xWinRounds}`}</p>
+                <p className="scoreBoardGold">{`Gold Win: ${this.state.yWinRounds}`}</p>
+                <p className="scoreBoardTie">{`Tie: ${this.state.tieRound}`}</p>
+              </div>
+              <button className="resetBtn" onClick={this.resetGame.bind(this)}>Restart Game</button>
+            </div>
+            <div className="play">
+              {
+                this.state.cells[0].map( (cell, index) => {
+                    return <Button key = {index} x={index} clickPlay={this.clickPlay.bind(this)} />
+                } )
+              }
+            </div>
+            <div className="board">
+              {
+                this.state.cells.map( (row, rowIndex) => {
+                  return row.map( (col, colIndex) => {
+                    return <Cell key={rowIndex+colIndex} x={colIndex} y={rowIndex} cellClass={this.state.cellClasses[rowIndex][colIndex]} />
+                  } )
+                } )
+              }
+            </div>
+            <p id="gameOver"></p>
+            <p id="gameRestart"></p>
           </div>
-          <button className="resetBtn" onClick={this.resetGame.bind(this)}>Restart Game</button>
-        </div>
-        <div className="play">
-          {
-            this.state.cells[0].map( (cell, index) => {
-                return <Button key = {index} x={index} clickPlay={this.clickPlay.bind(this)} />
-            } )
-          }
-        </div>
-        <div className="board">
-          {
-            this.state.cells.map( (row, rowIndex) => {
-              return row.map( (col, colIndex) => {
-                return <Cell key={rowIndex+colIndex} x={colIndex} y={rowIndex} cellClass={this.state.cellClasses[rowIndex][colIndex]} />
-              } )
-            } )
-          }
-        </div>
-        <p id="gameOver"></p>
-        <p id="gameRestart"></p>
-      </div>
-
+        </Suspense>
+      </ErrorBoundary>
     );
   }
-  // render() {
-  //   return (
-  //     <div className="game">
-  //       <h1 className="title">Connect Four <button className="resetBtn" onClick={this.resetGame.bind(this)}>Reset Game</button></h1>
-  //       <div className="play">
-  //         {
-  //           this.state.cells[0].map( (cell, index) => {
-  //               return <Button key = {index} x={index} clickPlay={this.clickPlay.bind(this)} />
-  //           } )
-  //         }
-  //       </div>
-  //       <div className="board">
-  //         {
-  //           this.state.cells.map( (row, rowIndex) => {
-  //             return row.map( (col, colIndex) => {
-  //               return <Cell key={rowIndex+colIndex} x={colIndex} y={rowIndex} cellClass={this.state.cellClasses[rowIndex][colIndex]} />
-  //             } )
-  //           } )
-  //         }
-  //       </div>
-  //       <p>{`Green Win: ${this.state.xWinRounds} Gold Win: ${this.state.yWinRounds} Tie: ${this.state.tieRound}`}</p>
-  //       <p id="gameOver"></p>
-  //       <p id="gameRestart"></p>
-  //     </div>
-
-  //   );
-  // }
 
 }
 
