@@ -2,7 +2,7 @@
 
 A full stack browser game.
 
-### https://hqconnectfour.herokuapp.com
+### https://hqconnectfour.onrender.com
 
 ## Getting Started
 
